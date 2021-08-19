@@ -12,6 +12,7 @@ import java.util.concurrent.ConcurrentHashMap;
 public class WeatherService {
 
     private final Map<Integer, Weather> weathers = new ConcurrentHashMap<>();
+
     {
         weathers.put(1, new Weather(1, "Msc", 20));
         weathers.put(2, new Weather(2, "SPb", 15));
@@ -32,11 +33,11 @@ public class WeatherService {
 
     public Flux<Weather> hottest() {
         int maxtemp = weathers.values().stream().mapToInt(Weather::getTemperature).max().getAsInt();
-        return Flux.fromStream(weathers.values().stream().filter(x->x.getTemperature()==maxtemp));
+        return Flux.fromStream(weathers.values().stream().filter(x -> x.getTemperature() == maxtemp));
     }
 
     public Flux<Weather> cityGreatThen(int id) {
-        return Flux.fromStream(weathers.values().stream().filter(x->x.getTemperature()>id));
+        return Flux.fromStream(weathers.values().stream().filter(x -> x.getTemperature() > id));
     }
 
 }
